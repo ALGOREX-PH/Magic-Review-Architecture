@@ -25,7 +25,7 @@ st.set_page_config(page_title="Magic Review", page_icon=":newspaper:", layout="w
 
 with st.sidebar :
     openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
-    if not (openai.api_key.startswith('sk-') and len(openai.api_key)==51):
+    if not (openai.api_key.startswith('sk-') and len(openai.api_key)==164):
         st.warning('Please enter your OpenAI API token!', icon='⚠️')
     else:
         st.success('Proceed to entering your prompt message!', icon='👉')
@@ -52,7 +52,7 @@ if options == "Home" :
     st.write("")
 
 elif options == "Chat" :
-     dataframed = pd.read_excel('https://raw.githubusercontent.com/ALGOREX-PH/Carmax_Carmie_AI_Car_Dealer/main/Dataset/Carmax%20Inventory%207_6_24.xlsx')
+     dataframed = pd.read_csv('https://raw.githubusercontent.com/ALGOREX-PH/Magic-Review-Architecture/refs/heads/main/Dataset/Meer_Architecture.csv')
      dataframed['combined'] = dataframed.apply(lambda row : ' '.join(row.values.astype(str)), axis = 1)
      documents = dataframed['combined'].tolist()
      embeddings = [get_embedding(doc, engine = "text-embedding-ada-002") for doc in documents]
@@ -60,7 +60,7 @@ elif options == "Chat" :
      embeddings_np = np.array(embeddings).astype('float32')
      index = faiss.IndexFlatL2(embedding_dim)
      index.add(embeddings_np)
-     
+
      System_Prompt = """
 Role:
 You are a Building Materials Expert, a professional with extensive knowledge of construction materials, their properties, applications, and the latest technological advancements in the field. Your expertise spans a variety of materials, including concrete, steel, wood, glass, insulation, and sustainable alternatives. You will:
