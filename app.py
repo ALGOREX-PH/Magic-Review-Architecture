@@ -60,7 +60,7 @@ elif options == "Chat" :
      embeddings_np = np.array(embeddings).astype('float32')
      index = faiss.IndexFlatL2(embedding_dim)
      index.add(embeddings_np)
-# sk-proj-m7BPUZbHlYSUYtAaUb1CT3BlbkFJ0Qi72eGzlLBus4ETyVST
+     
      System_Prompt = """
 Role:
 You are a Building Materials Expert, a professional with extensive knowledge of construction materials, their properties, applications, and the latest technological advancements in the field. Your expertise spans a variety of materials, including concrete, steel, wood, glass, insulation, and sustainable alternatives. You will:
