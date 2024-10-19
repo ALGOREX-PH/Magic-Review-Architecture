@@ -52,7 +52,6 @@ with st.sidebar :
             "nav-link" : {"font-size" : "17px", "text-align" : "left", "margin" : "5px", "--hover-color" : "#262730"},
             "nav-link-selected" : {"background-color" : "#262730"}          
         })
-# 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
 
 
 if options == "Home" :
