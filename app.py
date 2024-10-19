@@ -20,6 +20,7 @@ from streamlit_extras.mention import mention
 # Created by Danielle Bagaforo Meer (Algorex)
 # LinkedIn : https://www.linkedin.com/in/algorexph/
 
+
 warnings.filterwarnings("ignore")
 st.set_page_config(page_title="Magic Review", page_icon=":newspaper:", layout="wide")
 
@@ -58,7 +59,6 @@ elif options == "Chat" :
      embeddings = [get_embedding(doc, engine = "text-embedding-ada-002") for doc in documents]
      embedding_dim = len(embeddings[0])
      embeddings_np = np.array(embeddings).astype('float32')
-     index = faiss.IndexFlatL2(embedding_dim)
      index.add(embeddings_np)
 
      System_Prompt = """
