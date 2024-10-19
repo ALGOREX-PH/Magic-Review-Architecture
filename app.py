@@ -23,7 +23,12 @@ from streamlit_extras.mention import mention
 
 warnings.filterwarnings("ignore")
 st.set_page_config(page_title="Magic Review", page_icon=":newspaper:", layout="wide")
-
+dataframed = pd.read_csv('https://raw.githubusercontent.com/ALGOREX-PH/Magic-Review-Architecture/refs/heads/main/Dataset/Meer_Architecture.csv')
+documents = ""
+embeddings = ""
+embedding_dim = ""
+embeddings_np = ""
+index = ""
 with st.sidebar :
     openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
     if not (openai.api_key.startswith('sk-') and len(openai.api_key)==164):
@@ -47,19 +52,21 @@ with st.sidebar :
             "nav-link" : {"font-size" : "17px", "text-align" : "left", "margin" : "5px", "--hover-color" : "#262730"},
             "nav-link-selected" : {"background-color" : "#262730"}          
         })
+# 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
 
 
 if options == "Home" :
     st.write("")
 
 elif options == "Chat" :
-     dataframed = pd.read_csv('https://raw.githubusercontent.com/ALGOREX-PH/Magic-Review-Architecture/refs/heads/main/Dataset/Meer_Architecture.csv')
      dataframed['combined'] = dataframed.apply(lambda row : ' '.join(row.values.astype(str)), axis = 1)
      documents = dataframed['combined'].tolist()
      embeddings = [get_embedding(doc, engine = "text-embedding-ada-002") for doc in documents]
      embedding_dim = len(embeddings[0])
      embeddings_np = np.array(embeddings).astype('float32')
+     index = faiss.IndexFlatL2(embedding_dim)
      index.add(embeddings_np)
+
 
      System_Prompt = """
 Role:
